@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0c0e1b">
+<meta name="description" content="Juego de plataformas ninja: 20 niveles, puestos militares que liberar, cajas de armas y un jefe al final de cada nivel.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sombra Carmesí">
+<title>Sombra Carmesí</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Dela+Gothic+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="app">
+
+<section class="view" id="v-home">
+  <div class="home">
+    <div>
+      <p class="kicker">Ninja · Plataformas · 20 niveles</p>
+      <h1>Sombra Carmesí</h1>
+      <p class="lead">Los soldados del General Tetsu quemaron tu aldea y se llevaron a Sakura. Con unos shurikens y mucho sigilo, liberarás puesto tras puesto hasta llegar a su fortaleza.</p>
+      <div class="actions">
+        <button class="btn primary" id="btnContinue">Jugar nivel 1</button>
+        <button class="btn" id="btnLevels">Elegir nivel</button>
+        <button class="btn ghost" id="btnSound">Sonido: sí</button>
+        <button class="btn ghost" id="btnFull" hidden>Pantalla completa</button>
+      </div>
+      <p class="progress" id="homeProgress"></p>
+      <dl class="controls">
+        <dt>Moverse</dt><dd><kbd>←</kbd><kbd>→</kbd> o <kbd>A</kbd><kbd>D</kbd></dd>
+        <dt>Saltar</dt><dd><kbd>↑</kbd> <kbd>W</kbd> o <kbd>Espacio</kbd> (mantén para saltar más alto)</dd>
+        <dt>Atacar</dt><dd><kbd>X</kbd> <kbd>J</kbd> <kbd>K</kbd> o <kbd>Z</kbd></dd>
+        <dt>Bajar de plataforma</dt><dd><kbd>↓</kbd> o <kbd>S</kbd></dd>
+        <dt>Pausa</dt><dd><kbd>Esc</kbd> o <kbd>P</kbd></dd>
+      </dl>
+      <p class="tip">Las cajas de arma traen al azar una katana (cuerpo a cuerpo, corta las balas) o una pistola (largo alcance). También puedes aplastar a los soldados saltando sobre ellos.</p>
+    </div>
+    <svg class="hero" viewBox="0 0 480 400" role="img" aria-label="Un ninja con bufanda roja sobre un tejado, de noche, lanzando un shuriken">
+      <defs><linearGradient id="hs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:#0d1030"/><stop offset="1" style="stop-color:#5b2a4e"/></linearGradient></defs>
+      <rect width="480" height="400" fill="url(#hs)"/>
+      <circle cx="372" cy="94" r="46" fill="#efe9da"/>
+      <circle cx="356" cy="104" r="9" fill="#d9d2c0"/><circle cx="388" cy="80" r="6" fill="#d9d2c0"/><circle cx="380" cy="112" r="5" fill="#d9d2c0"/>
+      <path d="M0 300 L70 210 L120 260 L190 180 L260 270 L330 220 L400 280 L480 230 V400 H0Z" fill="#241c48"/>
+      <path d="M0 340 L90 280 L170 330 L250 270 L340 335 L420 295 L480 330 V400 H0Z" fill="#171235"/>
+      <g fill="#10213f"><rect x="38" y="40" width="8" height="360"/><rect x="66" y="80" width="6" height="320"/><rect x="424" y="50" width="8" height="350"/><rect x="452" y="100" width="6" height="300"/></g>
+      <g fill="#1d3a66"><rect x="36" y="140" width="12" height="3"/><rect x="36" y="230" width="12" height="3"/><rect x="64" y="170" width="10" height="3"/><rect x="422" y="120" width="12" height="3"/><rect x="422" y="240" width="12" height="3"/><rect x="450" y="200" width="10" height="3"/></g>
+      <path d="M20 335 Q240 296 460 335 L480 352 H0Z" fill="#0b0a1c"/>
+      <rect x="0" y="350" width="480" height="50" fill="#0b0a1c"/>
+      <path d="M236 268 Q200 258 168 280 Q204 278 238 286 Z" fill="#e23a4e"/>
+      <rect x="236" y="276" width="28" height="30" rx="4" fill="#161a33"/>
+      <rect x="238" y="302" width="10" height="20" fill="#161a33"/><rect x="252" y="302" width="10" height="20" fill="#161a33"/>
+      <circle cx="250" cy="262" r="14" fill="#161a33"/>
+      <rect x="250" y="259" width="12" height="5" fill="#e8c39e"/><rect x="257" y="260" width="3" height="2" fill="#fff"/>
+      <rect x="236" y="254" width="28" height="4" fill="#e23a4e"/>
+      <rect x="262" y="282" width="28" height="6" fill="#161a33"/>
+      <g class="spin"><polygon points="318,268 322,280 334,284 322,288 318,300 314,288 302,284 314,280" fill="#cfd8e3"/><circle cx="318" cy="284" r="3" fill="#161a33"/></g>
+    </svg>
+  </div>
+</section>
+
+<section class="view" id="v-levels" hidden>
+  <div class="bar">
+    <button class="btn" id="lvBack">← Pantalla principal</button>
+    <button class="btn ghost" id="btnReset">Borrar progreso</button>
+  </div>
+  <h2 style="margin-top:20px">Niveles</h2>
+  <div id="levelGrid" class="grid"></div>
+</section>
+
+<section class="view panel-wrap" id="v-intro" hidden>
+  <div class="panel">
+    <p class="kicker" id="inKick">Nivel 1 de 20</p>
+    <h2 id="inName">Aldea en llamas</h2>
+    <p class="story" id="inStory"></p>
+    <ul class="goals">
+      <li>Libera los puestos enemigos: <strong id="inOutposts">3</strong> en este nivel.</li>
+      <li>Al final te espera un jefe del ejército: <strong id="inBoss"></strong>.</li>
+    </ul>
+    <div class="actions">
+      <button class="btn primary" id="inGo">Comenzar</button>
+      <button class="btn ghost" id="inBack">Volver</button>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-play" hidden>
+  <div id="stage">
+    <canvas id="cv" width="960" height="544" aria-label="Pantalla del juego"></canvas>
+    <button id="pauseBtn" class="pausebtn" aria-label="Pausa">II</button>
+    <div id="pause" class="overlay" hidden>
+      <div class="panel small">
+        <h2>Pausa</h2>
+        <div class="actions col" style="margin-top:14px">
+          <button class="btn primary" id="pResume">Seguir</button>
+          <button class="btn" id="pRestart">Reiniciar nivel</button>
+          <button class="btn ghost" id="pMenu">Pantalla principal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="touch">
+    <div class="pad"><button data-k="left" aria-label="Izquierda">◀</button><button data-k="right" aria-label="Derecha">▶</button></div>
+    <div class="pad"><button data-k="attack" aria-label="Atacar">✦</button><button data-k="jump" aria-label="Saltar">▲</button></div>
+  </div>
+  <p class="rot">Gira el móvil en horizontal para ver mejor el escenario.</p>
+</section>
+
+<section class="view panel-wrap" id="v-result" hidden>
+  <div class="panel">
+    <p class="kicker" id="rKick">Puesto liberado</p>
+    <h2 id="rTitle">Nivel 1 completado</h2>
+    <p class="story" id="rStory"></p>
+    <dl class="stats">
+      <div><dt>Tiempo</dt><dd id="rTime">0:00</dd></div>
+      <div><dt>Soldados</dt><dd id="rKills">0/0</dd></div>
+      <div><dt>Puestos</dt><dd id="rFlags">0/0</dd></div>
+      <div><dt>Medalla</dt><dd id="rStar">—</dd></div>
+    </dl>
+    <div class="actions"><button class="btn primary" id="rHome">Volver a la pantalla principal</button></div>
+  </div>
+</section>
+
+<section class="view panel-wrap" id="v-over" hidden>
+  <div class="panel">
+    <p class="kicker">Has caído</p>
+    <h2 id="oTitle">Sakura sigue esperando</h2>
+    <p class="story" id="oStory">Los soldados te han detenido esta vez. Respira, estudia el ritmo de sus disparos y vuelve a intentarlo.</p>
+    <div class="actions">
+      <button class="btn primary" id="oRetry">Reintentar nivel</button>
+      <button class="btn ghost" id="oHome">Pantalla principal</button>
+    </div>
+  </div>
+</section>
+
+<p class="foot">Sombra Carmesí · el progreso se guarda en este navegador</p>
+</main>
+<script src="game.js"></script>
+<script>
+// Permite instalar la app y jugar sin conexión (solo en https o localhost)
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+}
+</script>
+</body>
+</html>
