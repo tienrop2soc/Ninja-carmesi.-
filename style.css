@@ -2,7 +2,9 @@
 html{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 [hidden]{display:none!important}
 img{max-width:100%}
-body{overscroll-behavior:none}
+html,body{overscroll-behavior:none;overflow-x:hidden;touch-action:manipulation;-webkit-text-size-adjust:100%}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+#v-play,#stage,#cv,#touch,#pauseBtn{touch-action:none;-webkit-user-select:none;user-select:none}
 /* Layout: pantallas a página completa (inicio, niveles, historia, resultado) y un escenario de canvas para jugar. */
 :root{
   --night:#0c0e1b; --night-2:#151a30; --night-3:#222a52; --paper:#efe9da; --muted:#9aa3bd;

@@ -99,6 +99,16 @@ function releaseAll() { for (const k in keys) keys[k] = false; touch.left = touc
 window.addEventListener('blur', () => { releaseAll(); if (view === 'play') setPause(true); });
 document.addEventListener('visibilitychange', () => { if (document.hidden && view === 'play') setPause(true); });
 
+/* Evita zoom (doble toque, pellizco) y desplazamiento lateral mientras se juega */
+['gesturestart', 'gesturechange', 'gestureend'].forEach(n => document.addEventListener(n, e => e.preventDefault()));
+document.addEventListener('dblclick', e => e.preventDefault());
+document.addEventListener('touchmove', e => { if (view === 'play' || e.touches.length > 1) e.preventDefault(); }, { passive: false });
+let lastTouchEnd = 0;
+document.addEventListener('touchend', e => {
+  const t = Date.now();
+  if (view === 'play' && t - lastTouchEnd < 350) e.preventDefault();
+  lastTouchEnd = t;
+}, { passive: false });
 function bindTouch() {
   document.querySelectorAll('#touch [data-k]').forEach(b => {
     const k = b.dataset.k;

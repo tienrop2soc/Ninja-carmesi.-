@@ -1,6 +1,6 @@
 // Sombra Carmesí · caché para uso sin conexión.
 // Al publicar cambios, sube el número de versión para que los móviles se actualicen.
-const CACHE = 'sombra-carmesi-v1';
+const CACHE = 'sombra-carmesi-v2';
 const ASSETS = ['./', 'index.html', 'style.css', 'game.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
